@@ -33,7 +33,6 @@ CSS:
 
 ```css
 :root {
-  background-color: transparent;
   background-material: regular;
 }
 
