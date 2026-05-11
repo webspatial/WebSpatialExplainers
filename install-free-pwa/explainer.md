@@ -1,4 +1,3 @@
-```markdown
 # install-free-pwa Explainer
 
 ## Problem
@@ -66,4 +65,3 @@ Standalone chrome (no URL bar) carries spoofing risk. The opt-in keeps the same 
 - Interaction with `display_override` and existing display modes.
 - Spatial-specific: volume window lifecycle, scope handling across spatial transitions, and how the install promotion is presented inside an XR shell.
 - Feature detection from script and from CSS.
-```
