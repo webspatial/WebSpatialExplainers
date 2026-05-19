@@ -6,19 +6,19 @@ Modern operating systems use materials to communicate depth, layering, presence 
 
 [PICO OS 6](https://developer.picoxr.com/document/spatial-sdk/glass-effect/) Thin, Regular, Thick, and Thickest material
 
-![PICO OS 6](PICO_OS_6.png)
+<img src="PICO_OS_6.png" height="400" alt="PICO OS 6" />
 
 [Windows 11](https://learn.microsoft.com/en-us/windows/apps/design/signature-experiences/materials) Mica, Mica Alt and Acrylic material
 
-![Windows 11](Windows_11.png)
+<img src="Windows_11.png" height="400" alt="Windows 11" />
 
 [Android](https://m3.material.io/styles/color/roles) Surface and Surface Container material
 
-![Android](Android.png)
+<img src="Android.png" height="400" alt="Android" />
 
 [visionOS](https://developer.apple.com/design/human-interface-guidelines/materials) ultraThin, thin, regular and thick material
 
-![visionOS](visionOS.png)
+<img src="visionOS.png" height="400" alt="visionOS" />
 
 ## Goals
 
@@ -32,11 +32,12 @@ Modern operating systems use materials to communicate depth, layering, presence 
 
 ## Syntax
 
-Render a `<html>` page with ChromeMaterial as the background. Within this page there's a `<main>` element which renders the CanvasMaterial as the background.
+Render a page with ChromeMaterial as the background. Within this page there's a `<main>` element which renders the CanvasMaterial as the background.
 
 ```css
 html {
   background-material: ChromeMaterial;
+  background-color: transparent;
 }
 main {
   background-material: CanvasMaterial;
@@ -45,7 +46,7 @@ main {
 
 ## System Materials
 
-Analogous to CSS `<system-color>`, system materials provide semantic names for default materials on various operating systems. These materials can automatically adapt to different color schemes, themes and color modes. For example, a system which supports both dark and light mode would adapt the system material automatically as the system switches from light to dark mode. Similarly, when a user opts for reduced transparency the system materials automatically adapt to less transparent materials.
+Analogous to CSS `<system-color>`, system materials provide semantic names for default materials on various operating systems. These materials can automatically adapt to different color schemes, themes and color modes. For example, a system which supports both dark and light mode would adapt the system material automatically as the system switches from light to dark. Similarly, when a user opts for reduced transparency the system materials automatically adapt to less transparent materials.
 
 <table header-row="true" col-widths="144,676">
     <tr>
@@ -80,11 +81,20 @@ Analogous to CSS `<system-color>`, system materials provide semantic names for d
 
 ## CSS Interopability
 
-`background-material`is interoperable with existing CSS `background-*` properties. `background-material` is rendered as the last layer behind `background-color` and `background-image`. When defining the `background` CSS property the `<'background-material'>` component may only be included in the last background layer specified similar to `<'background-color'>`.
+`background-material` is interoperable with existing CSS `background-*` properties. A material is painted as the last background layer, behind `background-color` and `background-image`. Since `background-color` and `background-image` are painted above the material layer, authors need to make those layers transparent when they want the material to be visible. An opaque `background-color` will hide the material.
+
+```css
+.panel {
+  background-color: transparent;
+  background-material: PanelMaterial;
+}
+```
+
+When defining the `background` CSS property, the `<'background-material'>` component may only be included in the last background layer, similar to `<'background-color'>`. The `background` shorthand resets `background-material` to its initial value, `none`, when no material component is specified.
 
 ### Material Detection
 
-Leverage CSS `@supports` to allow developers to set their app's background to transparent when the platform supports materials, and use a different background color if not
+Leverage CSS `@supports` to allow developers to set their app's background to transparent when the platform supports materials, and use a different background color if not.
 
 ```css
 main {
@@ -93,7 +103,7 @@ main {
 @supports (background-material: CanvasMaterial) {
   main {
     background-color: transparent;
-    background-color: CanvasMaterial;
+    background-material: CanvasMaterial;
   }
 }
 ```
